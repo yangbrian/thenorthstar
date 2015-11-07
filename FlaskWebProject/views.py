@@ -3,8 +3,9 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request
 from FlaskWebProject import app
+
 
 @app.route('/')
 @app.route('/home')
@@ -16,6 +17,7 @@ def home():
         year=datetime.now().year,
     )
 
+
 @app.route('/contact')
 def contact():
     """Renders the contact page."""
@@ -26,6 +28,7 @@ def contact():
         message='Your contact page.'
     )
 
+
 @app.route('/about')
 def about():
     """Renders the about page."""
@@ -35,3 +38,8 @@ def about():
         year=datetime.now().year,
         message='Your application description page.'
     )
+
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    return 'Server successfully received data'

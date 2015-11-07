@@ -26,7 +26,6 @@ $(document).ready(function () {
             question++;
 
             while (question < total - 1 && !$('.question:eq(' + question + ')').is(':visible')) {
-                console.log(question);
                 question++;
             }
 
@@ -68,8 +67,6 @@ $(document).ready(function () {
     });
     
     $('.dest-slider-result').change(function () {
-
-        $('.continue').fadeIn();
         
         var extraQuestion = $('.area-question');
         extraQuestion.attr('style', '');
@@ -83,19 +80,29 @@ $(document).ready(function () {
     
     });
 
-    $('.region-slider-result').change(function () {
-        nextQuestion();
-    });
-
     $('.continue').click(function () {
         nextQuestion();
     });
 
     $('#main-form').submit(function (e) {
+        $('.loader').fadeIn(100);
+
         e.preventDefault();
 
 
         $(this).serialize();
+
+
+
+        $.post( "/submit", $(this).serialize())
+            .done(function( data ) {
+                $.scrollTo('#intro', 1000);
+                $('#main-form').fadeOut();
+                $('#results').html(data);
+                $('#results').fadeIn();
+
+                $('.loader').fadeOut(500);
+            });
     });
 });
 

@@ -9,6 +9,9 @@
     </section>
 
     <section id="survey">
+        <div id="results" style="display:none;">
+
+        </div>
         <form id="main-form" class="north-star-form">
 
             <div class="question row">
@@ -135,10 +138,11 @@
                 </div>
             </div>
 
-            <button type="button" class="continue" style="display: none;">Continue</button>
+            <button type="button" class="continue">Continue</button>
 
             <button type="submit" class="submit" id="submit">Find me flights</button>
         </form>
+        <div class="loader" style="display: none;"></div>
     </section>
 
 {% endblock %}
