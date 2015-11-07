@@ -2,16 +2,121 @@
 
 {% block content %}
 
-<div class="jumbotron">
     <h1>Hack the North Star</h1>
-    <p class="lead">Terrible default Bootstrap theme, will change later :P</p>
-    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Get Started &raquo;</a></p>
-</div>
 
-<div class="row">
-    <form id="flight-form" action="" method="post">
+    <section id="intro" class="row">
+        <p>Cool intro here</p>
+    </section>
 
-    </form>
-</div>
+    <section id="survey">
+        <form id="main-form" class="north-star-form">
+            <div class="question row">
+                <p>What type of vacation would you like?</p>
+
+                <label class="radio" for="beach"><input type="radio" name="type" value="beach" id="beach"> Beach</label>
+                <label class="radio" for="romance"><input type="radio" name="type" value="romance" id="romance"> Romance</label>
+                <label class="radio" for="exploration"><input type="radio" name="type" value="exploration" id="exploration"> Exploration</label>
+                <label class="radio" for="nightlife"><input type="radio" name="type" value="nightlife" id="nightlife"> Nightlife</label>
+                <label class="radio" for="family"><input type="radio" name="type" value="family" id="family"> Family</label>
+            </div>
+
+            <div class="question row hidden continue-button">
+                <p>Which general areas would you like? Please drag the slider to indicate preference (with 5 being strongly prefer and 1 being no preference).</p>
+                <div class="slider-option">
+                    <div class="slider-label">California</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="dest-slider-result" name="dest-california" value="1" />
+                </div>
+
+                <div class="slider-option">
+                    <div class="slider-label">Caribbean</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="dest-slider-result" name="dest-caribbean" value="1" />
+                </div>
+
+                <div class="slider-option">
+                    <div class="slider-label">Mid-Atlantic</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="dest-slider-result" name="dest-midatlantic" value="1" />
+                </div>
+
+                <div class="slider-option">
+                    <div class="slider-label">Mountain-Desert</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="dest-slider-result" name="dest-mountaindesert" value="1" />
+                </div>
+
+                <div class="slider-option">
+                    <div class="slider-label">Northeast</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="dest-slider-result" name="dest-northeast" value="1" />
+                </div>
+
+                <div class="slider-option">
+                    <div class="slider-label">South SW</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="dest-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <div class="question row area-question">
+                <p>You selected that you're interested in <span class="location">California</span>. Which regions are you interested in?</p>
+                <div class="slider-option">
+                    <div class="slider-label">California</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <div class="question row area-question">
+                <p>You selected that you're interested in <span class="location">Caribbean</span>. Which regions are you interested in?</p>
+                <div class="slider-option">
+                    <div class="slider-label">Caribbean</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <div class="question row area-question">
+                <p>You selected that you're interested in <span class="location">Mid-Atlantic</span>. Which regions are you interested in?</p>
+                <div class="slider-option">
+                    <div class="slider-label">Mid-Atlantic</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <div class="question row area-question">
+                <p>You selected that you're interested in <span class="location">Mountain-Desert</span>. Which regions are you interested in?</p>
+                <div class="slider-option">
+                    <div class="slider-label">Mountain-Desert</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <div class="question row area-question">
+                <p>You selected that you're interested in <span class="location">Northeast</span>. Which regions are you interested in?</p>
+                <div class="slider-option">
+                    <div class="slider-label">Northeast</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <div class="question row area-question">
+                <p>You selected that you're interested in <span class="location">South SW</span>. Which regions are you interested in?</p>
+                <div class="slider-option">
+                    <div class="slider-label">South SW</div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                </div>
+            </div>
+
+            <button type="button" class="continue" style="display: none;">Continue</button>
+
+            <button type="submit" class="submit">Find me flights</button>
+        </form>
+    </section>
 
 {% endblock %}

@@ -10,8 +10,6 @@
 $(document).ready(function () {
     "use strict";
     
-    $(document).foundation();
-    
     var total, question = 0;
     total = $('.question').length;
     
@@ -48,5 +46,36 @@ $(document).ready(function () {
         nextQuestion();
     });
     
+    $('.slider').each(function () {
+        $(this).slider({
+            range: "min",
+            min: 1,
+            max: 5,
+            value: 1,
+            slide: function (event, ui) {
+                $(ui.handle).parent().next().val(ui.value).change();
+            }
+        });
+    });
     
+    $('.dest-slider-result').change(function () {
+
+        $('.continue').fadeIn();
+        
+        var extraQuestion = $('.area-question');
+        extraQuestion.attr('style', '');
+        $('.dest-slider-result').each(function (index, value) {
+            
+            if ($(value).val() > 1) {
+                console.log(extraQuestion[index]);
+                $(extraQuestion[index]).css('display', 'block');
+            }
+        });
+    
+    });
+    
+    $('.continue').click(function () {
+        $(this).fadeOut();
+        nextQuestion();
+    });
 });
