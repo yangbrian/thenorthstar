@@ -3,12 +3,7 @@ from contextlib import closing
 import pymysql
 import csv
 
-# hostname = 'us-cdbr-azure-east-a.cloudapp.net'
-# port = 3306
-# username = 'b67312773cea3d'
-# password = 'cf62f138'
-
-def add_airport_region(cursor):
+def add_airport_region(cursor, connection):
     file = open('../rawData/AirportRegion-stg.csv', 'r')
     file.readline()
     with file as line:
@@ -17,9 +12,10 @@ def add_airport_region(cursor):
             sql = "INSERT INTO airport_region(airport_code, geo_region_id) VALUES (%s, %s)"
             print(data)
             cursor.execute(sql, (data[0], data[1]))
-            conn.commit()
+            connection.commit()
 
-def add_city_dest_type(cursor):
+
+def add_city_dest_type(cursor, connection):
     file = open('../rawData/CityPairDestinationType-stg.csv', 'r')
     file.readline()
     with file as line:
@@ -28,9 +24,10 @@ def add_city_dest_type(cursor):
             sql = "INSERT INTO city_pair_destType(origin, destination, destination_type) VALUES (%s, %s, %s)"
             print(data)
             cursor.execute(sql, (data[0], data[1], data[2]))
-            conn.commit()
+            connection.commit()
 
-def add_dest_type(cursor):
+
+def add_dest_type(cursor, connection):
     file = open('../rawData/DestinationType-stg.csv', 'r')
     file.readline()
     with file as line:
@@ -39,21 +36,26 @@ def add_dest_type(cursor):
             sql = "INSERT INTO destination_type(type_id, type_name, display_order) VALUES(%s, %s, %s)"
             print(data)
             cursor.execute(sql, (data[0], data[1], data[2]))
-            conn.commit()
+            connection.commit()
 
-def add_fare(cursor):
+
+def add_fare(cursor, connection):
     file = open('../rawData/Fares.Fare-stg.csv', 'r')
     file.readline()
     with file as line:
         reader = csv.reader(line)
         for data in reader:
+            dateInfo = data[3].split()
+            date = dateInfo[0]
+            time = dateInfo[1]
             sql = "INSERT INTO fare" \
-                  "(batch_number, origin, destination, flight_date, flight_type, fare_type, dollar_fare, dollar_tax, points_fare, points_tax, is_Domestic, is_Private)" \
-                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cur.execute(sql, (data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11]))
-            conn.commit()
+                  "(batch_number, origin, destination, flight_date, flight_time, flight_type, fare_type, dollar_fare, dollar_tax, points_fare, points_tax, is_Domestic, is_Private)" \
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cur.execute(sql, (data[0], data[1], data[2], date, time, data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11]))
+            connection.commit()
 
-def add_geo_region(cursor):
+
+def add_geo_region(cursor, connection):
     file = open('../rawData/GeographicRegion-stg.csv', 'r')
     file.readline()
     with file as line:
@@ -61,9 +63,10 @@ def add_geo_region(cursor):
         for data in reader:
             sql = "INSERT INTO geographic_region(region_id, market_group_id, region_name) VALUES (%s, %s, %s)"
             cursor.execute(sql, (data[0], data[1], data[2]))
-            conn.commit()
+            connection.commit()
 
-def add_mac(cursor):
+
+def add_mac(cursor, connection):
     file = open('../rawData/MAC-stg.csv', 'r')
     file.readline()
     with file as line:
@@ -71,9 +74,10 @@ def add_mac(cursor):
         for data in reader:
             sql = "INSERT INTO mac(code, is_supported) VALUES (%s, %s)"
             cursor.execute(sql, (data[0], data[1]))
-            conn.commit()
+            connection.commit()
 
-def add_market_group(cursor):
+
+def add_market_group(cursor, connection):
     file = open('../rawData/MarketGroup-stg')
     file.readline()
     with file as line:
@@ -81,7 +85,14 @@ def add_market_group(cursor):
         for data in reader:
             sql = "INSERT INTO market_group(group_id, group_name) VALUES (%s, %s)"
             cursor.execute(sql, (data[0], data[1]))
-            conn.commit()
+            connection.commit()
+
+
+# hostname = 'us-cdbr-azure-east-a.cloudapp.net'
+# port = 3306
+# username = 'b67312773cea3d'
+# password = 'cf62f138'
+# dbName = 'northstar'
 
 hostname = 'localhost'
 port = 3306
@@ -96,22 +107,22 @@ conn = pymysql.connect(host = hostname, port = port, user = username, passwd=pas
 with closing(conn.cursor()) as cur:
 
     # airport code to region ID - two columns. skip first line.
-    add_airport_region(cur)
+    add_airport_region(cur, conn)
 
     # city-pair-destinationType
-    add_city_dest_type(cur)
+    add_city_dest_type(cur, conn)
 
     #destination type
-    add_dest_type(cur)
+    add_dest_type(cur, conn)
 
     #fares
-    add_fare(cur)
+    add_fare(cur, conn)
 
     #geographic region
-    add_geo_region(cur)
+    add_geo_region(cur, conn)
 
     #mac
-    add_mac(cur)
+    add_mac(cur, conn)
 
     #market group
-    add_market_group(cur)
+    add_market_group(cur, conn)
