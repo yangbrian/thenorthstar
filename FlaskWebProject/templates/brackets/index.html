@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hack the North Star</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.0/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation/foundation.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation/foundation.slider.min.js"></script>
+    <script type="text/javascript" src="js/northstar.js"></script>
+</head>
+<body>
+    <h1>Hack the North Star</h1>
+    
+    <section id="intro" class="row">
+        <p>Cool intro here</p>
+    </section>
+    
+    <section id="survey">
+        <form id="main-form" class="north-star-form">
+        <div class="question row">
+            <p>What type of vacation would you like?</p>
+            
+            <label class="radio" for="beach"><input type="radio" name="type" value="beach" id="beach"> Beach</label>
+            <label class="radio" for="romance"><input type="radio" name="type" value="romance" id="romance"> Romance</label>
+            <label class="radio" for="exploration"><input type="radio" name="type" value="exploration" id="exploration"> Exploration</label>
+            <label class="radio" for="nightlife"><input type="radio" name="type" value="nightlife" id="nightlife"> Nightlife</label>
+            <label class="radio" for="family"><input type="radio" name="type" value="family" id="family"> Family</label>
+        </div>
+        
+        <div class="question row">
+            <p>What kind of destination would you like?</p>
+            <div class="range-slider" data-slider data-options="step: 1; start: 1; end: 5;">
+                <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                <span class="range-slider-active-segment"></span>
+                <input name="destination-cali" type="hidden">
+            </div>
+        </div>
+        
+        <div class="question row">
+            <p>Which sub-region</p>
+            <input type="text" name="type" class="input-field">
+        </div>
+    </form>
+    </section>
+    
+</body>
+</html>
