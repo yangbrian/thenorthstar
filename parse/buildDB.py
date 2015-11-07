@@ -44,15 +44,20 @@ def add_fare(cursor, connection):
     file.readline()
     with file as line:
         reader = csv.reader(line)
+        count = 0
         for data in reader:
-            dateInfo = data[3].split()
-            date = dateInfo[0]
-            time = dateInfo[1]
-            sql = "INSERT INTO fare" \
-                  "(batch_number, origin, destination, flight_date, flight_time, flight_type, fare_type, dollar_fare, dollar_tax, points_fare, points_tax, is_Domestic, is_Private)" \
-                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cur.execute(sql, (data[0], data[1], data[2], date, time, data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11]))
-            connection.commit()
+            if count < 59500:
+                count += 1
+            else:
+                dateInfo = data[3].split()
+                date = dateInfo[0]
+                time = dateInfo[1]
+                print(data)
+                sql = "INSERT INTO fare" \
+                      "(batch_number, origin, destination, flight_date, flight_time, flight_type, fare_type, dollar_fare, dollar_tax, points_fare, points_tax, is_Domestic, is_Private)" \
+                      "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                cur.execute(sql, (data[0], data[1], data[2], date, time, data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11]))
+                connection.commit()
 
 
 def add_geo_region(cursor, connection):
@@ -61,6 +66,7 @@ def add_geo_region(cursor, connection):
     with file as line:
         reader = csv.reader(line)
         for data in reader:
+            print(data)
             sql = "INSERT INTO geographic_region(region_id, market_group_id, region_name) VALUES (%s, %s, %s)"
             cursor.execute(sql, (data[0], data[1], data[2]))
             connection.commit()
@@ -72,33 +78,35 @@ def add_mac(cursor, connection):
     with file as line:
         reader = csv.reader(line)
         for data in reader:
+            print(data)
             sql = "INSERT INTO mac(code, is_supported) VALUES (%s, %s)"
             cursor.execute(sql, (data[0], data[1]))
             connection.commit()
 
 
 def add_market_group(cursor, connection):
-    file = open('../rawData/MarketGroup-stg')
+    file = open('../rawData/MarketGroup-stg.csv')
     file.readline()
     with file as line:
         reader = csv.reader(line)
         for data in reader:
+            print(data)
             sql = "INSERT INTO market_group(group_id, group_name) VALUES (%s, %s)"
             cursor.execute(sql, (data[0], data[1]))
             connection.commit()
 
 
-# hostname = 'us-cdbr-azure-east-a.cloudapp.net'
-# port = 3306
-# username = 'b67312773cea3d'
-# password = 'cf62f138'
-# dbName = 'northstar'
-
-hostname = 'localhost'
+hostname = 'us-cdbr-azure-east-a.cloudapp.net'
 port = 3306
-username = 'root'
-password = ''
-dbName = 'northstar'
+username = 'b67312773cea3d'
+password = 'cf62f138'
+dbName = 'thenorthstar'
+
+# hostname = 'localhost'
+# port = 3306
+# username = 'root'
+# password = ''
+# dbName = 'northstar'
 
 # connect to sql server
 conn = pymysql.connect(host = hostname, port = port, user = username, passwd=password, db=dbName)
@@ -107,22 +115,22 @@ conn = pymysql.connect(host = hostname, port = port, user = username, passwd=pas
 with closing(conn.cursor()) as cur:
 
     # airport code to region ID - two columns. skip first line.
-    add_airport_region(cur, conn)
+    # add_airport_region(cur, conn)
 
     # city-pair-destinationType
-    add_city_dest_type(cur, conn)
+    # add_city_dest_type(cur, conn)
 
     #destination type
-    add_dest_type(cur, conn)
+    # add_dest_type(cur, conn)
 
     #fares
     add_fare(cur, conn)
 
     #geographic region
-    add_geo_region(cur, conn)
+    # add_geo_region(cur, conn)
 
     #mac
-    add_mac(cur, conn)
+    # add_mac(cur, conn)
 
     #market group
-    add_market_group(cur, conn)
+    # add_market_group(cur, conn)
