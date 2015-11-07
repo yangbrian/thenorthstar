@@ -1616,7 +1616,7 @@ section {
 
 .north-star-form {
   width: 100%; }
-  .north-star-form .question {
+  .north-star-form .question, .north-star-form .fb-question {
     font-size: 1.5em;
     max-width: 80%;
     margin: auto;
@@ -1626,8 +1626,10 @@ section {
     -o-transition: all 0.5s 0.5s;
     -webkit-transition: all 0.5s 0.5s;
     transition: all 0.5s 0.5s; }
-    .north-star-form .question.current {
+    .north-star-form .question.current, .north-star-form .fb-question.current {
       opacity: 1.0; }
+  .north-star-form .fb-question {
+    opacity: 1.0; }
   .north-star-form .area-question {
     display: none; }
   .north-star-form .radio {
@@ -1665,5 +1667,8 @@ button.continue {
 
 button.submit {
   font: 30px Lato, sans-serif; }
+
+#facebook-info label {
+  display: block; }
 
 /*# sourceMappingURL=style.css.map */

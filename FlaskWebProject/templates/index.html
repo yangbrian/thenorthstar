@@ -10,6 +10,7 @@
 
     <section id="survey">
         <form id="main-form" class="north-star-form">
+
             <div class="question row">
                 <p>What type of vacation would you like?</p>
 
@@ -113,9 +114,30 @@
                 </div>
             </div>
 
+            <div class="fb-question">
+
+                <div id="facebook-info">
+                    <fb:login-button scope="public_profile,email,user_birthday,user_hometown,user_relationship_details" onlogin="checkLoginState();">
+                    </fb:login-button>
+
+
+
+                    <div id="status"></div>
+
+                    <label style="display: none;" for="age"><strong>Age:</strong>
+                    <input type="hidden" name="age" value="-1" /></label>
+
+                    <label style="display: none;" for="hometown"><strong>Hometown:</strong>
+                    <input type="hidden" name="hometown" value="Pluto" /></label>
+
+                    <label style="display: none;" for="relationship"><strong>Relationship:</strong>
+                    <input type="hidden" name="relationship" value="Unspecified" /></label>
+                </div>
+            </div>
+
             <button type="button" class="continue" style="display: none;">Continue</button>
 
-            <button type="submit" class="submit">Find me flights</button>
+            <button type="submit" class="submit" id="submit">Find me flights</button>
         </form>
     </section>
 

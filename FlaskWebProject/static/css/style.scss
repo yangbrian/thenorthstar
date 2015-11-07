@@ -35,7 +35,7 @@ section {
 .north-star-form {
     width: 100%;
     
-    .question {
+    .question, .fb-question {
         font-size: 1.5em;
         max-width: 80%;
         margin: auto;
@@ -47,6 +47,10 @@ section {
             opacity: 1.0;
         }
     }
+
+    .fb-question {
+        opacity: 1.0;
+    };
     
     .area-question {
         display: none;
@@ -99,4 +103,10 @@ button.continue {
 
 button.submit {
     font: 30px Lato, sans-serif;
+}
+
+#facebook-info {
+    label {
+        display: block;
+    }
 }
