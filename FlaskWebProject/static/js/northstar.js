@@ -131,6 +131,8 @@ $(document).ready(function () {
 
 var flights = [];
 var uniqueFlights = {};
+var offset = 0;
+
 function displayData(data, callback) {
 
     var results = data.result;
@@ -154,6 +156,8 @@ function displayData(data, callback) {
                 .append($('<td>').html(value.fare))
         );
     });
+
+
 
 
 

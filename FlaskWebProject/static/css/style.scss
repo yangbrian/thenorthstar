@@ -261,3 +261,12 @@ button.submit {
         transform: rotate(360deg);
     }
 }
+
+table#results-table {
+    width: 100%;
+    margin: 20px;
+
+    td, th {
+        border-bottom: 2px solid #666;
+    }
+}
