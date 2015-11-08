@@ -1,7 +1,7 @@
 __author__ = 'Brian'
 
 from contextlib import closing
-from bs4 import BeautifulSoup as soup, Tag
+from bs4 import BeautifulSoup as soup
 from string import ascii_uppercase
 import pymysql
 import requests

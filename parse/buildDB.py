@@ -44,20 +44,24 @@ def add_fare(cursor, connection):
     file.readline()
     with file as line:
         reader = csv.reader(line)
-        count = 0
         for data in reader:
-            if count < 59500:
-                count += 1
-            else:
-                dateInfo = data[3].split()
-                date = dateInfo[0]
-                time = dateInfo[1]
-                print(data)
-                sql = "INSERT INTO fare" \
-                      "(batch_number, origin, destination, flight_date, flight_time, flight_type, fare_type, dollar_fare, dollar_tax, points_fare, points_tax, is_Domestic, is_Private)" \
-                      "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-                cur.execute(sql, (data[0], data[1], data[2], date, time, data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11]))
-                connection.commit()
+            # date in format mm/dd/yyyy. need it in yyyy-mm-dd
+            dateInfo = data[3].split()
+            date = dateInfo[0]
+            split = date.split('/')
+            if int(split[0]) < 10:
+                split[0] = '0' + split[0]
+            if int(split[1]) < 10:
+                split[1] = '0' + split[1]
+            date = split[2] + '-' + split[0] + '-' + split[1]
+            time = dateInfo[1]
+
+            print(data)
+            sql = "INSERT INTO fare" \
+                  "(batch_number, origin, destination, flight_date, flight_time, flight_type, fare_type, dollar_fare, dollar_tax, points_fare, points_tax, is_Domestic, is_Private)" \
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cur.execute(sql, (data[0], data[1], data[2], date, time, data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11]))
+            connection.commit()
 
 
 def add_geo_region(cursor, connection):
@@ -114,23 +118,23 @@ conn = pymysql.connect(host = hostname, port = port, user = username, passwd=pas
 # fancy way to auto-close the connection
 with closing(conn.cursor()) as cur:
 
-    # airport code to region ID - two columns. skip first line.
+    # # airport code to region ID - two columns. skip first line.
     # add_airport_region(cur, conn)
-
-    # city-pair-destinationType
+    #
+    # # city-pair-destinationType
     # add_city_dest_type(cur, conn)
-
-    #destination type
+    #
+    # #destination type
     # add_dest_type(cur, conn)
-
-    #fares
+    #
+    # #fares
     add_fare(cur, conn)
-
-    #geographic region
+    #
+    # #geographic region
     # add_geo_region(cur, conn)
-
-    #mac
+    #
+    # #mac
     # add_mac(cur, conn)
-
-    #market group
+    #
+    # #market group
     # add_market_group(cur, conn)

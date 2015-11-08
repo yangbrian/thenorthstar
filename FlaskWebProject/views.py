@@ -3,8 +3,9 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, request
+from flask import render_template, Response
 from FlaskWebProject import app
+import pymysql
 
 
 @app.route('/')
@@ -42,4 +43,10 @@ def about():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    return 'Server successfully received data'
+    # return 'Server successfully received data'
+
+    info
+
+    return Response(response=dumps(cursor),
+                    status=200,
+                    mimetype="application/json")
