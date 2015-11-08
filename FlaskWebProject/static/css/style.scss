@@ -70,7 +70,7 @@ section {
         max-width: 80%;
         margin: auto;
         padding: 80px;
-        opacity: 0.1;
+        //opacity: 0.1;
         @include transition(0.5s);
         
         &.current {
