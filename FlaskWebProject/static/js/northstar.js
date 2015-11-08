@@ -117,14 +117,53 @@ $(document).ready(function () {
         $.post( "/submit", $(this).serialize())
             .done(function( data ) {
                 $.scrollTo('#intro', 1000);
-                $('#main-form').fadeOut();
-                $('#results').html(data);
-                $('#results').fadeIn();
 
-                $('.loader').fadeOut(500);
+                displayData(data, function() {
+                    $('#main-form').fadeOut();
+                    $('#results').fadeIn();
+                    $('.loader').fadeOut(500);
+                });
+
+
             });
     });
 });
+
+var flights = [];
+var uniqueFlights = {};
+var offset = 0;
+
+function displayData(data, callback) {
+
+    var results = data.result;
+    $.each(results, function(index, value) {
+        var flight = {
+            origin: value[0],
+            destination: value[1],
+            time: value[2],
+            date: value[3],
+            fare: value[4]
+        };
+        flights.push(flight);
+    });
+
+    $.each(flights, function(index, value) {
+        $('#results-table').append(
+            $('<tr>')
+                .append($('<td>').html(value.destination))
+                .append($('<td>').html(value.time))
+                .append($('<td>').html(value.date))
+                .append($('<td>').html(value.fare))
+        );
+    });
+
+
+
+
+
+    if (callback)
+        callback();
+}
 
 /* Facebook integration */
 $(document).ready(function() {
