@@ -1921,7 +1921,9 @@ header#header {
   background-size: cover;
   background-position: center; }
   header#header h1 {
-    margin: 0; }
+    margin: 0;
+    padding: 15px;
+    opacity: 0.9; }
   header#header #title {
     position: absolute;
     top: 0;
