@@ -34,7 +34,7 @@ section {
 
 .north-star-form {
     width: 100%;
-    
+
     .question, .fb-question {
         font-size: 1.5em;
         max-width: 80%;
@@ -48,6 +48,12 @@ section {
         }
     }
 
+    .datepicker.input-field {
+        width: 33%;
+        font-size: 1.1em;
+        padding: 5px;
+    }
+
     .fb-question {
         opacity: 1.0;
     };
@@ -56,23 +62,65 @@ section {
         display: none;
     }
     
-    .radio {
+    .checkbox {
         font-size: 1.0em;
         
         &:hover {
             cursor: pointer;
         }
+
+        img {
+            opacity: 0.45;
+            @include transition(0.5s);
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        input {
+            display: none;
+
+            &:checked + img {
+                opacity: 1.0;
+            }
+        }
     }
-    
+
+    .slider {
+        display: none;
+        opacity: 0.5;
+        height: 10px;
+    }
+
     .slider-label {
         font-size: 0.75em;
         padding-bottom: 10px;
+
+        img {
+            @include transition(0.5s);
+            opacity: 0.45;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        &.label-selected img {
+            opacity: 1.0;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
     }
-    
+
     .slider-option {
         padding: 10px;
+        width: 1/7 * 100%;
+        display: inline-block;
     }
-    
+
     .ui-slider-handle {
         border-radius: 100px;
         width: 1.0em;

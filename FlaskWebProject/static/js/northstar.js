@@ -1,5 +1,5 @@
 /**
- * The North Start - Main Script
+ * North Star - Main Script
  * @author Brian Yang
  */
 
@@ -20,16 +20,16 @@ $(document).ready(function () {
      */
     function nextQuestion() {
 
-            $('.question:eq(' + question + ')').removeClass('current');
+        $('.question:eq(' + question + ')').removeClass('current');
 
 
+        question++;
+
+        while (question < total - 1 && !$('.question:eq(' + question + ')').is(':visible')) {
             question++;
+        }
 
-            while (question < total - 1 && !$('.question:eq(' + question + ')').is(':visible')) {
-                question++;
-            }
-
-        if (question + 1 !== total) {
+        if (question < total && $('.question:eq(' + question + ')').is(':visible')) {
             $.scrollTo('.question:eq(' + question + ') p', 500, {offset: -$(window).height() / 2});
             
             $('.question:eq(' + question + ')').addClass('current');
@@ -38,7 +38,10 @@ $(document).ready(function () {
         }
         
     }
-    
+
+    $( "#startdatepicker" ).datepicker({"dateFormat": "yy-mm-dd"});
+    $( "#enddatepicker" ).datepicker({"dateFormat": "yy-mm-dd"});
+
     /**
      * Move onto next question by enter key 
      */
@@ -65,6 +68,23 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.slider-label').click(function () {
+        $(this).toggleClass('label-selected');
+
+        if ($(this).hasClass('label-selected')) {
+
+            // reset slider to 1
+            $(this).next().slider('value', 1);
+            $(this).next().next().val(1).change();
+            $(this).next().fadeIn();
+        } else {
+            $(this).next().fadeOut();
+
+            // not selected anymore so set value to 1
+            $(this).next().next().val(0).change();
+        }
+    });
     
     $('.dest-slider-result').change(function () {
         
@@ -72,7 +92,7 @@ $(document).ready(function () {
         extraQuestion.attr('style', '');
         $('.dest-slider-result').each(function (index, value) {
             
-            if ($(value).val() > 1) {
+            if ($(value).val() > 0) {
                 console.log(extraQuestion[index]);
                 $(extraQuestion[index]).css('display', 'block');
             }

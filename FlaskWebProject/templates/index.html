@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>Hack the North Star</h1>
+    <h1>North Star</h1>
 
     <section id="intro" class="row">
         <p>Cool intro here</p>
@@ -15,105 +15,198 @@
         <form id="main-form" class="north-star-form">
 
             <div class="question row">
-                <p>What type of vacation would you like?</p>
+                <p>Which range of days are you available to fly?</p>
 
-                <label class="radio" for="beach"><input type="radio" name="type" value="beach" id="beach"> Beach</label>
-                <label class="radio" for="romance"><input type="radio" name="type" value="romance" id="romance"> Romance</label>
-                <label class="radio" for="exploration"><input type="radio" name="type" value="exploration" id="exploration"> Exploration</label>
-                <label class="radio" for="nightlife"><input type="radio" name="type" value="nightlife" id="nightlife"> Nightlife</label>
-                <label class="radio" for="family"><input type="radio" name="type" value="family" id="family"> Family</label>
+                <label for="start-date">
+                    <input class="datepicker input-field" type="text" id="startdatepicker" name="start-date">
+                </label>
+
+                <label for="end-date">
+                    <input class="datepicker input-field" type="text" id="enddatepicker" name="end-date">
+                </label>
             </div>
 
-            <div class="question row hidden continue-button">
+            <div class="question row">
+                <p>What type of vacation would you like?</p>
+
+                <label class="checkbox" for="beach"><input type="checkbox" name="type[]" value="beach" id="beach"><img src="/static/images/typeofvacation/beach.png" alt="Beach" /></label>
+                <label class="checkbox" for="romance"><input type="checkbox" name="type[]" value="romance" id="romance"><img src="/static/images/typeofvacation/romance.png" alt="Romance" /></label>
+                <label class="checkbox" for="exploration"><input type="checkbox" name="type[]" value="exploration" id="exploration"> <img src="/static/images/typeofvacation/exploration.png" alt="Exploraion" /></label>
+                <label class="checkbox" for="nightlife"><input type="checkbox" name="type[]" value="nightlife" id="nightlife"><img src="/static/images/typeofvacation/nightlife.png" alt="Nightlife" /></label>
+                <label class="checkbox" for="family"><input type="checkbox" name="type[]" value="family" id="family"><img src="/static/images/typeofvacation/family.png" alt="Family" /></label>
+            </div>
+
+            <div class="question region-question row hidden continue-button">
                 <p>Which general areas would you like? Please drag the slider to indicate preference (with 5 being strongly prefer and 1 being no preference).</p>
                 <div class="slider-option">
-                    <div class="slider-label">California</div>
+                    <div class="slider-label"><img src="/static/images/generalgeography/California.png" alt="California" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="dest-slider-result" name="dest-california" value="1" />
+                    <input type="hidden" class="dest-slider-result" name="dest-California" value="0" />
                 </div>
 
                 <div class="slider-option">
-                    <div class="slider-label">Caribbean</div>
+                    <div class="slider-label"><img src="/static/images/generalgeography/Caribbean.png" alt="California" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="dest-slider-result" name="dest-caribbean" value="1" />
+                    <input type="hidden" class="dest-slider-result" name="dest-Caribbean" value="0" />
                 </div>
 
                 <div class="slider-option">
-                    <div class="slider-label">Mid-Atlantic</div>
+                    <div class="slider-label"><img src="/static/images/generalgeography/Mid-Atlantic.png" alt="California" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="dest-slider-result" name="dest-midatlantic" value="1" />
+                    <input type="hidden" class="dest-slider-result" name="dest-Mid-Atlantic" value="0" />
                 </div>
 
                 <div class="slider-option">
-                    <div class="slider-label">Mountain-Desert</div>
+                    <div class="slider-label"><img src="/static/images/generalgeography/MountainDesert.png" alt="California" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="dest-slider-result" name="dest-mountaindesert" value="1" />
+                    <input type="hidden" class="dest-slider-result" name="dest-MountainDesert" value="0" />
                 </div>
 
                 <div class="slider-option">
-                    <div class="slider-label">Northeast</div>
+                    <div class="slider-label"><img src="/static/images/generalgeography/Northeast.png" alt="California" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="dest-slider-result" name="dest-northeast" value="1" />
+                    <input type="hidden" class="dest-slider-result" name="dest-Northeast" value="0" />
                 </div>
 
                 <div class="slider-option">
-                    <div class="slider-label">South SW</div>
+                    <div class="slider-label"><img src="/static/images/generalgeography/Southwest.png" alt="California" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="dest-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="dest-slider-result" name="dest-Southwest" value="0" />
                 </div>
             </div>
 
             <div class="question row area-question">
                 <p>You selected that you're interested in <span class="location">California</span>. Which regions are you interested in?</p>
                 <div class="slider-option">
-                    <div class="slider-label">California</div>
+                    <div class="slider-label"><img src="/static/images/specificgeography/LosAngeles.png" alt="Los Angeles" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="region-slider-result" name="area-LosAngeles" value="0" />
+                </div>
+
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/SanFrancisco.png" alt="SanFrancisco" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-SanFrancisco" value="0" />
                 </div>
             </div>
 
             <div class="question row area-question">
                 <p>You selected that you're interested in <span class="location">Caribbean</span>. Which regions are you interested in?</p>
                 <div class="slider-option">
-                    <div class="slider-label">Caribbean</div>
+                    <div class="slider-label"><img src="/static/images/specificgeography/PuertoRico.png" alt="PuertoRico" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="region-slider-result" name="area-pr" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/DominicanRepublic.png" alt="DominicanRepublic" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-dr" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/Colombia.png" alt="Colombia" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-Colombia" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/OtherCaribbean.png" alt="OtherCaribbean" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-OtherCaribbean" value="0" />
                 </div>
             </div>
 
             <div class="question row area-question">
                 <p>You selected that you're interested in <span class="location">Mid-Atlantic</span>. Which regions are you interested in?</p>
                 <div class="slider-option">
-                    <div class="slider-label">Mid-Atlantic</div>
+                    <div class="slider-label"><img src="/static/images/specificgeography/WashingtonDC.png" alt="WashingtonDC" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="region-slider-result" name="area-WashingtonDC" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/SouthernUS.png" alt="SouthernUS" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-Southern" value="0" />
                 </div>
             </div>
 
             <div class="question row area-question">
                 <p>You selected that you're interested in <span class="location">Mountain-Desert</span>. Which regions are you interested in?</p>
                 <div class="slider-option">
-                    <div class="slider-label">Mountain-Desert</div>
+                    <div class="slider-label"><img src="/static/images/specificgeography/WestMountain.png" alt="WestMountain" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="region-slider-result" name="area-WestMountain" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/WestDesert.png" alt="WestDesert" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-WestDesert" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/PacificNW.png" alt="PacificNW" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-PacificNW" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/Alaska.png" alt="Alaska" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-Alaska" value="0" />
                 </div>
             </div>
 
             <div class="question row area-question">
                 <p>You selected that you're interested in <span class="location">Northeast</span>. Which regions are you interested in?</p>
                 <div class="slider-option">
-                    <div class="slider-label">Northeast</div>
+                    <div class="slider-label"><img src="/static/images/specificgeography/NewYorkCity.png" alt="NewYorkCity" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="region-slider-result" name="area-NYC" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/UpstateNY.png" alt="UpstateNY" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-UpstateNY" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/Boston.png" alt="Boston" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-Boston" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/Midwest.png" alt="Midwest" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-Midwest" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/NEIslands.png" alt="NEIslands" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-NEIslands" value="0" />
                 </div>
             </div>
 
             <div class="question row area-question">
                 <p>You selected that you're interested in <span class="location">South SW</span>. Which regions are you interested in?</p>
                 <div class="slider-option">
-                    <div class="slider-label">South SW</div>
+                    <div class="slider-label"><img src="/static/images/specificgeography/PalmBeach.png" alt="PalmBeach" /></div>
                     <div class="slider"></div>
-                    <input type="hidden" class="region-slider-result" name="dest-southsw" value="1" />
+                    <input type="hidden" class="region-slider-result" name="area-pbi" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/Mexico.png" alt="Mexico" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-mcd" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/GulfOfMexico.png" alt="GulfOfMexico" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-gulf" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/Texas.png" alt="Texas" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-texas" value="0" />
+                </div>
+                <div class="slider-option">
+                    <div class="slider-label"><img src="/static/images/specificgeography/FtLauderdale.png" alt="FtLauderdale" /></div>
+                    <div class="slider"></div>
+                    <input type="hidden" class="region-slider-result" name="area-fll" value="0" />
                 </div>
             </div>
 
@@ -122,7 +215,6 @@
                 <div id="facebook-info">
                     <fb:login-button scope="public_profile,email,user_birthday,user_hometown,user_relationship_details" onlogin="checkLoginState();">
                     </fb:login-button>
-
 
 
                     <div id="status"></div>
