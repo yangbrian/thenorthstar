@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<script src="../../ammap_3.17.3.free/ammap/ammap.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../../ammap_3.17.3.free/ammap/ammap.css" type="text/css" media="all" />
+
+<script src="../../ammap_3.17.3.free/ammap/maps/js/usa2High.js" type="text/javascript"></script>
+
+
+<html>
+
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="mapdiv" style="width: 1200px; height: 500px;"></div>
+    <script type="text/javascript">
+    console.log("i");
+       //add all your code to this method, as this will ensure that page is loaded
+    AmCharts.ready(function() {
+        // create AmMap object
+        var map = new AmCharts.AmMap();
+        // set path to images
+        map.pathToImages = "ammap/images/";
+
+        /* create data provider object
+         map property is usually the same as the name of the map file.
+
+         getAreasFromMap indicates that amMap should read all the areas available
+         in the map data and treat them as they are included in your data provider.
+         in case you don't set it to true, all the areas except listed in data
+         provider will be treated as unlisted.
+        */
+
+        //Use Below for adding Labels (dots, populated based on flights that fit criteria)
+        //addLabel(x, y, text, align, size, color, rotation, alpha, bold, url)
+        //allLabels property, type Array[Label] with format above
+
+        originLong= -74.0059
+        originLat= 40.7127
+        originName= "New York City"
+
+        destinLong= -71.0589
+        destinLat= 42.3601
+        destinName= "Boston, MA"
+
+        //destinLong= -40.639    //-71.0589
+        //destinLat= -73.779
+        //destinName= "new york not city"
+
+
+
+
+        var dataProvider = {
+            map: "usa2High",
+           //manually posts dot at given Long/Lat, circle, color, label, title, description,
+            images:[
+                    //Origin Point
+                    {latitude:originLat,
+                     longitude:originLong,
+                     type:"circle",
+                     color:"#efd000",
+                     scale:1.2,
+                     label:"New York",
+                     labelShiftY:2,
+                     zoomLevel:3,
+                     title: "(Origin) "+ originName,
+                     labelColor:"#f2001f",
+                     labelRollOverColor:"#f2d300",
+                     description:"Placeholder string"},
+
+                     //Destination Points
+                     {latitude:destinLat,
+                     longitude:destinLong,
+                     type:"circle",
+                     color:"#f2001f",
+                     scale:0.8,
+                     label:"Boston",
+                     labelShiftY:2,
+                     zoomLevel:3,
+                     title: "(Destination) "+ destinName,
+                     labelColor:"#f2001f",
+                     labelRollOverColor:"#f2d300",
+                     rollOverColor:"#f2d300",
+                     description:"Boston is the second coolest city in the United States."
+                     }
+                     ],
+
+
+
+
+             "lines": [
+                {
+                     id:"line1",
+                    "latitudes": [originLat, destinLat], //MUST MAKE DYNAMIC
+                     "longitudes": [originLong, destinLong], //MUST MAKE DYNAMIC
+
+                     "arc": -0.8,
+                     "alpha": 0.65,
+                     "arrowColor": "#f2001f",
+                     "arrow": "middle",
+                     "arrowSize": 6,
+                     "arrowAlpha": 0.65,
+                     //"color": "#f2d300", //gold
+                     "color": "#f2001f", //red
+                     "thickness": 2.0,
+                     "arrowAlpha": 0.9
+                }
+              ],
+
+
+               "allLabels": [
+		            {
+			        "color": "#f2001f"
+		         }
+	           ],
+
+
+        /*
+            "imagesSettings": {
+                "alpha": 0.5,
+                "adjustAnimationSpeed":true,
+                "arc": 0.8,
+                "centered": true,
+                "color": "#f2d300"
+
+            }
+
+           */
+
+
+
+            "getAreasFromMap":true
+
+
+
+        };
+        // pass data provider to the map object
+        map.dataProvider = dataProvider;
+
+        /* create areas settings
+         * autoZoom set to true means that the map will zoom-in when clicked on the area
+         * selectedColor indicates color of the clicked area.
+         */
+        map.areasSettings = {
+            autoZoom: true,
+            selectedColor: "#194989",
+            color: "#002f6d",
+            rollOverOutlineColor: "#f2d300"
+        };
+
+        // let's say we want a small map to be displayed, so let's create it
+        map.smallMap = new AmCharts.SmallMap();
+
+        // write the map to container div
+        map.write("mapdiv");
+
+
+
+    });
+
+
+
+
+    </script>
+
+</body>
+</html>
