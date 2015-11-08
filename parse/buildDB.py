@@ -100,17 +100,17 @@ def add_market_group(cursor, connection):
             connection.commit()
 
 
-hostname = 'us-cdbr-azure-east-a.cloudapp.net'
-port = 3306
-username = 'b67312773cea3d'
-password = 'cf62f138'
-dbName = 'thenorthstar'
-
-# hostname = 'localhost'
+# hostname = 'us-cdbr-azure-east-a.cloudapp.net'
 # port = 3306
-# username = 'root'
-# password = ''
-# dbName = 'northstar'
+# username = 'b67312773cea3d'
+# password = 'cf62f138'
+# dbName = 'thenorthstar'
+
+hostname = 'localhost'
+port = 3306
+username = 'root'
+password = ''
+dbName = 'northstar'
 
 # connect to sql server
 conn = pymysql.connect(host = hostname, port = port, user = username, passwd=password, db=dbName)

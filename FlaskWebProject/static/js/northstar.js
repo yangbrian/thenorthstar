@@ -204,3 +204,5 @@ function calculateAge(date) {
 
     return age;
 }
+
+$(window).scroll()
