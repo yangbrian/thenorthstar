@@ -121,9 +121,10 @@ def submit():
         destinations = destinations[:len(destinations) - 3]
 
 
-        sql = "SELECT DISTINCT origin, destination, flight_time, flight_date, dollar_fare, city FROM fare WHERE flight_date > \'" + info['start-date']
+        sql = "SELECT DISTINCT origin, destination, flight_time, flight_date, dollar_fare FROM fare WHERE flight_date > \'" + info['start-date']
         sql += "\' AND flight_date < \'" + info['end-date']
         sql += "\' AND (" + destinations + ") AND origin=\'JFK\' AND dollar_fare <= " + info['max-budget'] + " ORDER BY flight_date ASC, dollar_fare ASC"
+        print (sql)
         cur.execute(sql)
         conn.commit()
 
@@ -137,7 +138,7 @@ def submit():
             destinations2 += "code = \'" + itemWeWant + "\' OR "
         destinations2 = destinations2[:len(destinations2) - 3]
 
-        sql = "SELECT DISTINCT code, latitude, longitude FROM airport_locations WHERE (" + destinations2 + ")"
+        sql = "SELECT DISTINCT code, latitude, longitude, city FROM airport_locations WHERE (" + destinations2 + ")"
         cur.execute(sql)
         conn.commit()
         locationMap = []

@@ -103,7 +103,27 @@ $(document).ready(function () {
     $('.continue').click(function () {
         nextQuestion();
     });
-
+    //var lastScroll = 0;
+    //$(window).scroll(function (e) {
+    //    var scroll = $(this).scrollTop();
+    //    if (scroll > lastScroll) {
+    //        // scrolling down
+    //
+    //        if ((question + 1) != total && passedCenter($('.question:eq(' + (question + 1) + ')'), false)) {
+    //            $('.question:eq(' + (question) + ')').removeClass('current');
+    //            question++;
+    //            $('.question:eq(' + (question) + ')').addClass('current');
+    //        }
+    //    } else {
+    //        // scrolling up
+    //        if ((question - 1) >= 0 && passedCenter($('.question:eq(' + (question - 1) + ')'), true)) {
+    //
+    //            $('.question:eq(' + (question) + ')').removeClass('current');
+    //            question--;
+    //            $('.question:eq(' + (question) + ')').addClass('current');
+    //        }
+    //    }
+    //});
     $('#main-form').submit(function (e) {
         $('.loader').fadeIn(100);
 
@@ -147,13 +167,32 @@ function displayData(data, callback) {
         flights.push(flight);
     });
 
+    var locationList = data.locationMap;
+    var locations = {};
+
+    $.each(locationList, function(index, value) {
+        locations[value[0]] = {
+            long: value[2],
+            lat: value[1],
+            city: value[3]
+        }
+    });
+
+    console.log(locations);
+
     $.each(flights, function(index, value) {
+        var newRow = $('<tr>')
+            .append($('<td>').html(value.destination))
+            .append($('<td>').html(value.time))
+            .append($('<td>').html(value.date))
+            .append($('<td>').html(value.fare));
+
+        newRow.on('click', function () {
+            console.log("row clicked");
+            amcharts(locations[value.destination].long, locations[value.destination].lat, locations[value.destination].city);
+        });
         $('#results-table').append(
-            $('<tr>')
-                .append($('<td>').html(value.destination))
-                .append($('<td>').html(value.time))
-                .append($('<td>').html(value.date))
-                .append($('<td>').html(value.fare))
+            newRow
         );
     });
 
@@ -244,4 +283,150 @@ function calculateAge(date) {
     return age;
 }
 
-$(window).scroll()
+
+var amcharts = function(long, lat, city) {
+
+    console.log("Amcharts");
+    console.log(long + ", " + lat);
+
+    // create AmMap object
+    var map = new AmCharts.AmMap();
+    // set path to images
+    map.pathToImages = "/static/am-images/";
+
+    /* create data provider object
+     map property is usually the same as the name of the map file.
+
+     getAreasFromMap indicates that amMap should read all the areas available
+     in the map data and treat them as they are included in your data provider.
+     in case you don't set it to true, all the areas except listed in data
+     provider will be treated as unlisted.
+     */
+
+    //Use Below for adding Labels (dots, populated based on flights that fit criteria)
+    //addLabel(x, y, text, align, size, color, rotation, alpha, bold, url)
+    //allLabels property, type Array[Label] with format above
+
+    originLong= -74.0059;
+    originLat= 40.7127;
+    originName= "New York City";
+
+    destinLong= long;
+    destinLat= lat;
+    destinName= city;
+
+    //destinLong= -40.639    //-71.0589
+    //destinLat= -73.779
+    //destinName= "new york not city"
+
+
+
+
+    var dataProvider = {
+        map: "usa2High",
+        //manually posts dot at given Long/Lat, circle, color, label, title, description,
+        images:[
+            //Origin Point
+            {latitude:originLat,
+                longitude:originLong,
+                type:"circle",
+                color:"#efd000",
+                scale:1.2,
+                label:"New York",
+                labelShiftY:2,
+                zoomLevel:3,
+                title: "(Origin) "+ originName,
+                labelColor:"#f2001f",
+                labelRollOverColor:"#f2d300",
+                description:"Placeholder string"},
+
+            //Destination Points
+            {latitude:destinLat,
+                longitude:destinLong,
+                type:"circle",
+                color:"#f2001f",
+                scale:0.8,
+                label:city,
+                labelShiftY:2,
+                zoomLevel:3,
+                title: "(Destination) "+ destinName,
+                labelColor:"#f2001f",
+                labelRollOverColor:"#f2d300",
+                rollOverColor:"#f2d300",
+                description:city + " is the second coolest city in the United States."
+    }
+        ],
+
+
+
+
+        "lines": [
+            {
+                id:"line1",
+                "latitudes": [originLat, destinLat], //MUST MAKE DYNAMIC
+                "longitudes": [originLong, destinLong], //MUST MAKE DYNAMIC
+
+                "arc": -0.8,
+                "alpha": 0.65,
+                "arrowColor": "#f2001f",
+                "arrow": "middle",
+                "arrowSize": 6,
+                "arrowAlpha": 0.65,
+                //"color": "#f2d300", //gold
+                "color": "#f2001f", //red
+                "thickness": 2.0,
+                "arrowAlpha": 0.9
+            }
+        ],
+
+
+        "allLabels": [
+            {
+                "color": "#f2001f"
+            }
+        ],
+
+
+        /*
+         "imagesSettings": {
+         "alpha": 0.5,
+         "adjustAnimationSpeed":true,
+         "arc": 0.8,
+         "centered": true,
+         "color": "#f2d300"
+
+         }
+
+         */
+
+
+
+        "getAreasFromMap":true
+
+
+
+    };
+    // pass data provider to the map object
+    map.dataProvider = dataProvider;
+
+    /* create areas settings
+     * autoZoom set to true means that the map will zoom-in when clicked on the area
+     * selectedColor indicates color of the clicked area.
+     */
+    map.areasSettings = {
+        autoZoom: true,
+        selectedColor: "#194989",
+        color: "#002f6d",
+        rollOverOutlineColor: "#f2d300"
+    };
+
+    // let's say we want a small map to be displayed, so let's create it
+    map.smallMap = new AmCharts.SmallMap();
+
+    // write the map to container div
+    map.write("mapdiv");
+
+
+
+
+};
