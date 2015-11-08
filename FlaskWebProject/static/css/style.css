@@ -1953,6 +1953,10 @@ section {
     width: 33%;
     font-size: 1.1em;
     padding: 5px; }
+  .north-star-form .budget.input-field {
+    width: 40%;
+    font-size: 1.1em;
+    padding: 5px; }
   .north-star-form .fb-question {
     opacity: 1.0; }
   .north-star-form .area-question {

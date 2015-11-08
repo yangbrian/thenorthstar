@@ -14,7 +14,14 @@
 
     <section id="survey">
         <div id="results" style="display:none;">
-
+            <table id="results-table">
+                <tr>
+                    <td>Destination</td>
+                    <td>Departure Time</td>
+                    <td>Departure Date</td>
+                    <td>Ticket Fare</td>
+                </tr>
+            </table>
         </div>
         <form id="main-form" class="north-star-form">
 
@@ -27,6 +34,13 @@
 
                 <label for="end-date">
                     <input class="datepicker input-field" type="text" id="enddatepicker" name="end-date">
+                </label>
+            </div>
+
+            <div class="question row">
+                <label for="max-budget">
+                    <p>What is your maximum budget?</p>
+                    <input class="budget input-field" type="text" id="max-budget" name="max-budget" />
                 </label>
             </div>
 

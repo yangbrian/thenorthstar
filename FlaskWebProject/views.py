@@ -50,6 +50,7 @@ def submit():
     info = {'start-date': request.form['start-date'],
             'end-date': request.form['end-date'],
             'type': request.form.getlist('type'),
+            'max-budget': request.form['max-budget'],
             'dest-california': request.form['dest-California'],
             'dest-caribbean': request.form['dest-Caribbean'],
             'dest-mid-atlantic': request.form['dest-Mid-Atlantic'],
@@ -120,9 +121,9 @@ def submit():
         destinations = destinations[:len(destinations) - 3]
 
 
-        sql = "SELECT DISTINCT origin, destination, flight_time, flight_date, dollar_fare FROM fare WHERE flight_date > \'" + info['start-date']
+        sql = "SELECT DISTINCT origin, destination, flight_time, flight_date, dollar_fare, city FROM fare WHERE flight_date > \'" + info['start-date']
         sql += "\' AND flight_date < \'" + info['end-date']
-        sql += "\' AND (" + destinations + ") AND origin=\'JFK\' ORDER BY dollar_fare ASC"
+        sql += "\' AND (" + destinations + ") AND origin=\'JFK\' AND dollar_fare <= " + info['max-budget'] + " ORDER BY flight_date ASC, dollar_fare ASC"
         cur.execute(sql)
         conn.commit()
 
